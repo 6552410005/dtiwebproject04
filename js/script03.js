@@ -1,79 +1,63 @@
-console.log(funC());
+let quiz = document.getElementById("quiz");
+let midterm = document.getElementById("midterm");
+let final = document.getElementById("final");
 
+let btnCalSumGrade = document.getElementById("bt-calSumGrade");
+let btnCancel = document.getElementById("bt-cancel");
 
-// console.log('555.....')
-// function
-//no parameter-no retutn
-function funA() {
-  console.log("AAA");
+let showSum = document.getElementById("show-sum");
+let showGrade = document.getElementById("show-grade");
+
+function calSum() {
+  let sum =
+    parseInt(quiz.value) + parseInt(midterm.value) + parseInt(final.value);
+  return sum;
 }
 
-funA();
-funA();
-
-//have parameter-no retutn
-function funB(data1, data2) {
-  console.log(`${data1} ยกกำลัง ${data2} เท่ากับ ${data1 ** data2}`);
+function calGrade(sum) {
+  if (sum >= 80) {
+    showSum.innerHTML = "<strong>ได้คะแนนรวม " + sum + " คะแนน</strong>";
+    showGrade.innerHTML = "<strong>ได้เกรด A</strong>";
+  } else if (sum >= 50) {
+    showSum.innerHTML = "<strong>ได้คะแนนรวม " + sum + " คะแนน</strong>";
+    showGrade.innerHTML = "<strong>ได้เกรด B</strong>";
+  } else {
+    showSum.innerHTML = "<strong>ได้คะแนนรวม " + sum + " คะแนน</strong>";
+    showGrade.innerHTML = "<strong>ได้เกรด C</strong>";
+  }
 }
 
-funB(10, 2);
-funA();
+function validateData(){
+    if(quiz.value.length == 0) {
+        alert('ป้อน QUIZ  ด้วย...')
+        return false;
+    }else if(isNaN(quiz.value)){
+        alert('ป้อน QUIZ  เป็นตัวเลขเท่านั้น')
+        return false
+    }else if(midterm.value.length == 0) {
+        alert('ป้อน Midterm ด้วย...')
+        return false;
+    }else if(isNaN(midterm.value)){
+        alert('ป้อน Midterm เป็นตัวเลขเท่านั้น')
+        return false
+    }if(final.value.length == 0) {
+        alert('ป้อน Final ด้วย...')
+        return false;
+    }else if(isNaN(final.value)){
+        alert('ป้อน Final เป็นตัวเลขเท่านั้น')
+        return false
+    }
 
-//no parameter-has retutn
-function funC() {
-  console.log("Wow...");
-  return 1000 * 2;
+    return true
 }
 
-console.log(funC());
-x = funC() - 500;
-console.log(x);
+btnCalSumGrade.addEventListener("click", () => {
+    if(validateData()){
+        calGrade(calSum())
+    }
+});
 
-//have parameter-has retutn
-function funD(xx, yy, zz) {
-  return xx + yy + zz;
-}
-
-console.log(funD(10, 10, 20))
-y = funD(1,2,3)
-console.log(y)
-
-
-// ------------------
-// default parameter
-function funE(n1,n2,n3 = 100){
-    console.log(n1+n2+n3)
-}
-
-funE(200,300)
-funE(200,300,400)
-
-// expression funtion
-let a = 20
-
-let b = function(){
-    console.log('SAU 555');
-    console.log('DTI 555');
-}
-
-let c = () =>{
-    console.log('SAU 555');
-    console.log('DTI 555');
-}
-
-// --------------
-let d = function(xxx){
-    console.log(xxx + 20);
-}
-
-let e = (num) => num * 10
-
-console.log(e(200));
-// //let e = (num) =>{
-//    return num * 10
-// }
-
-b()
-b()
-c()
-d(500)
+btnCancel.addEventListener("click", () => {
+  showSum.innerHTML = "";
+  showGrade.innerHTML = "";
+});
